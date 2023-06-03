@@ -463,7 +463,6 @@ library
                    Text.Pandoc.Writers,
                    Text.Pandoc.Writers.Native,
                    Text.Pandoc.Writers.HTML,
-                   Text.Pandoc.Writers.ChunkedHTML,
                    Text.Pandoc.Writers.Ipynb,
                    Text.Pandoc.Writers.Jira,
                    Text.Pandoc.Writers.LaTeX,

@@ -24,7 +24,6 @@ module Text.Pandoc.Writers
     , writeBeamer
     , writeBibTeX
     , writeBibLaTeX
-    , writeChunkedHTML
     , writeCommonMark
     , writeConTeXt
     , writeCslJson
@@ -75,7 +74,6 @@ import qualified Text.Pandoc.UTF8 as UTF8
 import Text.Pandoc.Error
 import Text.Pandoc.Writers.AsciiDoc
 import Text.Pandoc.Writers.BibTeX
-import Text.Pandoc.Writers.ChunkedHTML
 import Text.Pandoc.Writers.CommonMark
 import Text.Pandoc.Writers.ConTeXt
 import Text.Pandoc.Writers.CslJson
@@ -152,7 +150,6 @@ writers = [
   ,("bibtex"       , TextWriter writeBibTeX)
   ,("biblatex"     , TextWriter writeBibLaTeX)
   ,("markua"       , TextWriter writeMarkua)
-  ,("chunkedhtml"  , ByteStringWriter writeChunkedHTML)
   ]
 
 -- | Retrieve writer, extensions based on formatSpec (format+extensions).
