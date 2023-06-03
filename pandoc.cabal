@@ -52,48 +52,13 @@ data-files:
                  data/templates/styles.citations.html
                  data/templates/default.html4
                  data/templates/default.html5
-                 data/templates/default.chunkedhtml
-                 data/templates/default.tei
-                 data/templates/default.icml
-                 data/templates/default.opml
-                 data/templates/default.latex
-                 data/templates/default.bibtex
-                 data/templates/default.biblatex
-                 data/templates/default.context
-                 data/templates/default.texinfo
-                 data/templates/default.jira
-                 data/templates/default.man
-                 data/templates/default.ms
                  data/templates/default.markdown
-                 data/templates/default.muse
                  data/templates/default.commonmark
-                 data/templates/default.rst
                  data/templates/default.plain
-                 data/templates/default.mediawiki
-                 data/templates/default.dokuwiki
-                 data/templates/default.xwiki
-                 data/templates/default.zimwiki
-                 data/templates/default.rtf
-                 data/templates/default.s5
-                 data/templates/default.slidy
-                 data/templates/default.slideous
-                 data/templates/default.revealjs
-                 data/templates/default.dzslides
-                 data/templates/default.asciidoc
-                 data/templates/default.asciidoctor
-                 data/templates/default.haddock
-                 data/templates/default.textile
-                 data/templates/default.org
-                 data/templates/default.markua
-                 data/templates/default.typst
-                 data/templates/definitions.typst
-                 data/templates/template.typst
                  -- translations
                  data/translations/*.yaml
                  -- entities
                  data/docbook-entities.txt
-                 -- data for dzslides writer
-                 data/dzslides/template.html
                  -- default abbreviations file
                  data/abbreviations
                  -- bash completion template
