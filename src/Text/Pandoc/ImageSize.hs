@@ -44,7 +44,6 @@ import Numeric (showFFloat)
 import Text.Pandoc.Definition
 import Text.Pandoc.Options
 import qualified Text.Pandoc.UTF8 as UTF8
-import Text.Pandoc.XML.Light hiding (Attr)
 import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
 import qualified Data.Text.Encoding as TE
@@ -128,7 +127,7 @@ imageSize opts img = checkDpi <$>
        Just Gif  -> getSize img
        Just Jpeg -> getSize img
        Just Tiff -> getSize img
-       Just Svg  -> mbToEither "could not determine SVG size" $ svgSize opts img
+       Just Svg  -> Left "could not determine SVG size"
        Just Eps  -> mbToEither "could not determine EPS size" $ epsSize img
        Just Pdf  -> mbToEither "could not determine PDF size" $ pdfSize img
        Just Emf  -> mbToEither "could not determine EMF size" $ emfSize img
@@ -328,28 +327,6 @@ getSize img =
   exifDataToWord (Exif.ExifLong x) = Just $ fromIntegral x
   exifDataToWord (Exif.ExifShort x) = Just $ fromIntegral x
   exifDataToWord _ = Nothing
-
-
-svgSize :: WriterOptions -> ByteString -> Maybe ImageSize
-svgSize opts img = do
-  doc <- either (const mzero) return $ parseXMLElement
-                                     $ TL.fromStrict $ UTF8.toText img
-  let viewboxSize = do
-        vb <- findAttrBy (== QName "viewBox" Nothing Nothing) doc
-        [_,_,w,h] <- mapM safeRead (T.words vb)
-        return (w,h)
-  let dpi = fromIntegral $ writerDpi opts
-  let dirToInt dir = do
-        dim <- findAttrBy (== QName dir Nothing Nothing) doc >>= lengthToDim
-        return $ inPixel opts dim
-  w <- dirToInt "width" <|> (fst <$> viewboxSize)
-  h <- dirToInt "height" <|> (snd <$> viewboxSize)
-  return ImageSize {
-    pxX  = w
-  , pxY  = h
-  , dpiX = dpi
-  , dpiY = dpi
-  }
 
 emfSize :: ByteString -> Maybe ImageSize
 emfSize img =
