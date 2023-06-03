@@ -49,7 +49,6 @@ import Text.Pandoc.Walk (walk)
 import Text.Pandoc.Parsing hiding (tableCaption)
 import Text.Pandoc.Readers.HTML (htmlInBalanced, htmlTag, isBlockTag,
                                  isCommentTag, isInlineTag, isTextTag)
-import Text.Pandoc.Readers.LaTeX (applyMacros, rawLaTeXBlock, rawLaTeXInline)
 import Text.Pandoc.Shared
 import Text.Pandoc.URI (escapeURI, isURI)
 import Text.Pandoc.XML (fromEntities)
@@ -165,13 +164,6 @@ spnl = try $ do
   skipSpaces
   notFollowedBy (char '\n')
 
-spnl' :: PandocMonad m => ParsecT Sources st m Text
-spnl' = try $ do
-  xs <- many spaceChar
-  ys <- option "" $ try $ (:) <$> newline
-                              <*> (many spaceChar <* notFollowedBy (char '\n'))
-  return $ T.pack $ xs ++ ys
-
 indentSpaces :: PandocMonad m => MarkdownParser m Text
 indentSpaces = try $ do
   tabStop <- getOption readerTabStop
@@ -211,8 +203,7 @@ inlinesInBalancedBrackets =
                 code <|>
                 math <|>
                 endline <|>
-                rawHtmlInline <|>
-                rawLaTeXInline') >> go openBrackets)
+                rawHtmlInline) >> go openBrackets)
           <|>
           (do char ']'
               Control.Monad.when (openBrackets > 1) $ go (openBrackets - 1))
@@ -478,7 +469,6 @@ block = do
                , htmlBlock
                , table
                , codeBlockIndented
-               , rawTeXBlock
                , lineBlock
                , blockQuote
                , hrule
@@ -1149,19 +1139,6 @@ rawVerbatimBlock = htmlInBalanced isVerbTag
         isVerbTag (TagOpen "textarea" _) = True
         isVerbTag _                      = False
 
-rawTeXBlock :: PandocMonad m => MarkdownParser m (F Blocks)
-rawTeXBlock = do
-  guardEnabled Ext_raw_tex
-  result <- (B.rawBlock "tex" . trim . T.concat <$>
-                many1 ((<>) <$> rawConTeXtEnvironment <*> spnl'))
-          <|> (B.rawBlock "tex" . trim . T.concat <$>
-                many1 ((<>) <$> rawLaTeXBlock <*> spnl'))
-  return $ case B.toList result of
-                [RawBlock _ cs]
-                  | T.all (`elem` [' ','\t','\n']) cs -> return mempty
-                -- don't create a raw block for suppressed macro defs
-                _ -> return result
-
 rawHtmlBlocks :: PandocMonad m => MarkdownParser m (F Blocks)
 rawHtmlBlocks = do
   (TagOpen tagtype _, raw) <- htmlTag isBlockTag
@@ -1443,7 +1420,7 @@ pipeTableRow = try $ do
   openPipe <- (True <$ char '|') <|> return False
   -- split into cells
   let chunk = void (code <|> math <|> rawHtmlInline <|>
-                    escapedChar <|> rawLaTeXInline')
+                    escapedChar)
        <|> void (noneOf "|\n\r")
   cells <- (snd <$> withRaw (many chunk)) `sepBy1` char '|'
   closePipe <- (True <$ char '|') <|> return False
@@ -1533,7 +1510,7 @@ inline = do
      '~'     -> strikeout <|> subscript
      '='     -> mark
      '<'     -> autoLink <|> spanHtml <|> rawHtmlInline <|> ltSign
-     '\\'    -> math <|> escapedNewline <|> escapedChar <|> rawLaTeXInline'
+     '\\'    -> math <|> escapedNewline <|> escapedChar
      '@'     -> cite <|> exampleRef
      '"'     -> smart
      '\''    -> smart
@@ -1605,7 +1582,6 @@ symbol :: PandocMonad m => MarkdownParser m (F Inlines)
 symbol = do
   result <- noneOf "<\\\n\t "
          <|> try (do lookAhead $ char '\\'
-                     notFollowedBy' (() <$ rawTeXBlock)
                      char '\\')
   return $ return $ B.str $! T.singleton result
 
@@ -1636,8 +1612,8 @@ code = try $ do
          Right attr -> B.codeWith attr $! result
 
 math :: PandocMonad m => MarkdownParser m (F Inlines)
-math =  (return . B.displayMath <$> (mathDisplay >>= applyMacros))
-     <|> (return . B.math <$> (mathInline >>= applyMacros)) <+?>
+math =  (return . B.displayMath <$> mathDisplay)
+     <|> (return . B.math <$> mathInline) <+?>
                (guardEnabled Ext_smart *> (return <$> apostrophe)
                 <* notFollowedBy (space <|> satisfy isPunctuation))
 
@@ -2051,30 +2027,6 @@ inlineNote = do
     contents <- inlinesInBalancedBrackets
     updateState $ \st -> st{ stateInNote = False }
     return $ B.note . B.para <$> contents
-
-rawLaTeXInline' :: PandocMonad m => MarkdownParser m (F Inlines)
-rawLaTeXInline' = do
-  guardEnabled Ext_raw_tex
-  notFollowedBy' rawConTeXtEnvironment
-  try $ do
-    s <- rawLaTeXInline
-    return $ return $ B.rawInline "tex" s -- "tex" because it might be context
-
-rawConTeXtEnvironment :: PandocMonad m => ParsecT Sources st m Text
-rawConTeXtEnvironment = try $ do
-  string "\\start"
-  completion <- inBrackets (letter <|> digit <|> spaceChar)
-               <|> many1Char letter
-  contents <- manyTill (rawConTeXtEnvironment <|> countChar 1 anyChar)
-                       (try $ string "\\stop" >> textStr completion)
-  return $ "\\start" <> completion <> T.concat contents <> "\\stop" <> completion
-
-inBrackets :: PandocMonad m => ParsecT Sources st m Char -> ParsecT Sources st m Text
-inBrackets parser = do
-  char '['
-  contents <- manyChar parser
-  char ']'
-  return $ "[" <> contents <> "]"
 
 spanHtml :: PandocMonad m => MarkdownParser m (F Inlines)
 spanHtml = do
