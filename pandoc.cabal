@@ -53,13 +53,7 @@ data-files:
                  data/templates/default.html4
                  data/templates/default.html5
                  data/templates/default.chunkedhtml
-                 data/templates/default.docbook4
-                 data/templates/default.docbook5
-                 data/templates/default.jats_archiving
-                 data/templates/default.jats_articleauthoring
-                 data/templates/default.jats_publishing
                  data/templates/default.tei
-                 data/templates/default.opendocument
                  data/templates/default.icml
                  data/templates/default.opml
                  data/templates/default.latex
@@ -90,10 +84,6 @@ data-files:
                  data/templates/default.haddock
                  data/templates/default.textile
                  data/templates/default.org
-                 data/templates/default.epub2
-                 data/templates/default.epub3
-                 data/templates/article.jats_publishing
-                 data/templates/affiliations.jats
                  data/templates/default.markua
                  data/templates/default.typst
                  data/templates/definitions.typst
@@ -102,93 +92,10 @@ data-files:
                  data/translations/*.yaml
                  -- entities
                  data/docbook-entities.txt
-                 -- source files for reference.docx
-                 data/docx/[Content_Types].xml
-                 data/docx/_rels/.rels
-                 data/docx/docProps/app.xml
-                 data/docx/docProps/core.xml
-                 data/docx/docProps/custom.xml
-                 data/docx/word/document.xml
-                 data/docx/word/fontTable.xml
-                 data/docx/word/comments.xml
-                 data/docx/word/footnotes.xml
-                 data/docx/word/numbering.xml
-                 data/docx/word/settings.xml
-                 data/docx/word/webSettings.xml
-                 data/docx/word/styles.xml
-                 data/docx/word/_rels/document.xml.rels
-                 data/docx/word/_rels/footnotes.xml.rels
-                 data/docx/word/theme/theme1.xml
-                 -- source files for reference.odt
-                 data/odt/mimetype
-                 data/odt/manifest.rdf
-                 data/odt/styles.xml
-                 data/odt/content.xml
-                 data/odt/meta.xml
-                 data/odt/settings.xml
-                 data/odt/Configurations2/accelerator/current.xml
-                 data/odt/Thumbnails/thumbnail.png
-                 data/odt/META-INF/manifest.xml
-                 -- source files for reference.pptx
-                 data/pptx/_rels/.rels
-                 data/pptx/docProps/app.xml
-                 data/pptx/docProps/core.xml
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout1.xml.rels
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout2.xml.rels
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout3.xml.rels
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout4.xml.rels
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout5.xml.rels
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout6.xml.rels
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout7.xml.rels
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout8.xml.rels
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout9.xml.rels
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout10.xml.rels
-                 data/pptx/ppt/slideLayouts/_rels/slideLayout11.xml.rels
-                 data/pptx/ppt/slideLayouts/slideLayout1.xml
-                 data/pptx/ppt/slideLayouts/slideLayout2.xml
-                 data/pptx/ppt/slideLayouts/slideLayout3.xml
-                 data/pptx/ppt/slideLayouts/slideLayout4.xml
-                 data/pptx/ppt/slideLayouts/slideLayout5.xml
-                 data/pptx/ppt/slideLayouts/slideLayout6.xml
-                 data/pptx/ppt/slideLayouts/slideLayout7.xml
-                 data/pptx/ppt/slideLayouts/slideLayout8.xml
-                 data/pptx/ppt/slideLayouts/slideLayout9.xml
-                 data/pptx/ppt/slideLayouts/slideLayout10.xml
-                 data/pptx/ppt/slideLayouts/slideLayout11.xml
-                 data/pptx/ppt/_rels/presentation.xml.rels
-                 data/pptx/ppt/theme/theme1.xml
-                 data/pptx/ppt/presProps.xml
-                 data/pptx/ppt/slides/_rels/slide1.xml.rels
-                 data/pptx/ppt/slides/_rels/slide2.xml.rels
-                 data/pptx/ppt/slides/slide2.xml
-                 data/pptx/ppt/slides/slide1.xml
-                 data/pptx/ppt/slides/_rels/slide3.xml.rels
-                 data/pptx/ppt/slides/_rels/slide4.xml.rels
-                 data/pptx/ppt/slides/slide3.xml
-                 data/pptx/ppt/slides/slide4.xml
-                 data/pptx/ppt/viewProps.xml
-                 data/pptx/ppt/tableStyles.xml
-                 data/pptx/ppt/slideMasters/_rels/slideMaster1.xml.rels
-                 data/pptx/ppt/slideMasters/slideMaster1.xml
-                 data/pptx/ppt/presentation.xml
-                 data/pptx/ppt/notesMasters/_rels/notesMaster1.xml.rels
-                 data/pptx/ppt/notesMasters/notesMaster1.xml
-                 data/pptx/ppt/notesSlides/_rels/notesSlide1.xml.rels
-                 data/pptx/ppt/notesSlides/notesSlide1.xml
-                 data/pptx/ppt/notesSlides/_rels/notesSlide2.xml.rels
-                 data/pptx/ppt/notesSlides/notesSlide2.xml
-                 data/pptx/ppt/theme/theme2.xml
-                 data/pptx/[Content_Types].xml
-                  -- stylesheet for EPUB writer
-                 data/epub.css
                  -- data for dzslides writer
                  data/dzslides/template.html
                  -- default abbreviations file
                  data/abbreviations
-                 -- sample lua custom reader
-                 data/creole.lua
-                 -- lua init script
-                 data/init.lua
                  -- bash completion template
                  data/bash_completion.tpl
                  -- citeproc
@@ -464,7 +371,7 @@ library xml-light
 
 library
   import:        common-options
-  build-depends: xml-light,
+  build-depends:
                  Glob                  >= 0.7      && < 0.11,
                  JuicyPixels           >= 3.1.6.1  && < 3.4,
                  SHA                   >= 1.6      && < 1.7,
@@ -556,42 +463,29 @@ library
                    Text.Pandoc.Readers.CommonMark,
                    Text.Pandoc.Readers.Creole,
                    Text.Pandoc.Readers.BibTeX,
-                   Text.Pandoc.Readers.EndNote,
-                   Text.Pandoc.Readers.RIS,
                    Text.Pandoc.Readers.CslJson,
                    Text.Pandoc.Readers.MediaWiki,
                    Text.Pandoc.Readers.Vimwiki,
                    Text.Pandoc.Readers.RST,
                    Text.Pandoc.Readers.Org,
-                   Text.Pandoc.Readers.DocBook,
-                   Text.Pandoc.Readers.JATS,
                    Text.Pandoc.Readers.Jira,
-                   Text.Pandoc.Readers.OPML,
                    Text.Pandoc.Readers.Textile,
                    Text.Pandoc.Readers.Native,
                    Text.Pandoc.Readers.Haddock,
                    Text.Pandoc.Readers.TWiki,
                    Text.Pandoc.Readers.TikiWiki,
                    Text.Pandoc.Readers.Txt2Tags,
-                   Text.Pandoc.Readers.Docx,
-                   Text.Pandoc.Readers.ODT,
-                   Text.Pandoc.Readers.EPUB,
                    Text.Pandoc.Readers.Muse,
                    Text.Pandoc.Readers.Man,
-                   Text.Pandoc.Readers.FB2,
                    Text.Pandoc.Readers.DokuWiki,
                    Text.Pandoc.Readers.Ipynb,
                    Text.Pandoc.Readers.CSV,
                    Text.Pandoc.Readers.RTF,
                    Text.Pandoc.Writers,
                    Text.Pandoc.Writers.Native,
-                   Text.Pandoc.Writers.DocBook,
-                   Text.Pandoc.Writers.JATS,
-                   Text.Pandoc.Writers.OPML,
                    Text.Pandoc.Writers.HTML,
                    Text.Pandoc.Writers.ChunkedHTML,
                    Text.Pandoc.Writers.Ipynb,
-                   Text.Pandoc.Writers.ICML,
                    Text.Pandoc.Writers.Jira,
                    Text.Pandoc.Writers.LaTeX,
                    Text.Pandoc.Writers.ConTeXt,
@@ -612,17 +506,11 @@ library
                    Text.Pandoc.Writers.XWiki,
                    Text.Pandoc.Writers.ZimWiki,
                    Text.Pandoc.Writers.RTF,
-                   Text.Pandoc.Writers.ODT,
-                   Text.Pandoc.Writers.Docx,
-                   Text.Pandoc.Writers.Powerpoint,
-                   Text.Pandoc.Writers.EPUB,
-                   Text.Pandoc.Writers.FB2,
                    Text.Pandoc.Writers.TEI,
                    Text.Pandoc.Writers.Muse,
                    Text.Pandoc.Writers.CslJson,
                    Text.Pandoc.Writers.Math,
                    Text.Pandoc.Writers.Shared,
-                   Text.Pandoc.Writers.OOXML,
                    Text.Pandoc.Writers.AnnotatedTable,
                    Text.Pandoc.Writers.BibTeX,
                    Text.Pandoc.PDF,
@@ -665,12 +553,6 @@ library
                    Text.Pandoc.Parsing.Smart,
                    Text.Pandoc.Parsing.State,
                    Text.Pandoc.Parsing.Future,
-                   Text.Pandoc.Readers.Docx.Lists,
-                   Text.Pandoc.Readers.Docx.Combine,
-                   Text.Pandoc.Readers.Docx.Parse,
-                   Text.Pandoc.Readers.Docx.Parse.Styles,
-                   Text.Pandoc.Readers.Docx.Util,
-                   Text.Pandoc.Readers.Docx.Fields,
                    Text.Pandoc.Readers.HTML.Parsing,
                    Text.Pandoc.Readers.HTML.Table,
                    Text.Pandoc.Readers.HTML.TagCategories,
@@ -683,17 +565,6 @@ library
                    Text.Pandoc.Readers.LaTeX.Parsing,
                    Text.Pandoc.Readers.LaTeX.SIunitx,
                    Text.Pandoc.Readers.LaTeX.Table,
-                   Text.Pandoc.Readers.ODT.Base,
-                   Text.Pandoc.Readers.ODT.Namespaces,
-                   Text.Pandoc.Readers.ODT.StyleReader,
-                   Text.Pandoc.Readers.ODT.ContentReader,
-                   Text.Pandoc.Readers.ODT.Generic.Fallible,
-                   Text.Pandoc.Readers.ODT.Generic.SetMap,
-                   Text.Pandoc.Readers.ODT.Generic.Utils,
-                   Text.Pandoc.Readers.ODT.Generic.Namespaces,
-                   Text.Pandoc.Readers.ODT.Generic.XMLConverter,
-                   Text.Pandoc.Readers.ODT.Arrows.State,
-                   Text.Pandoc.Readers.ODT.Arrows.Utils,
                    Text.Pandoc.Readers.Org.BlockStarts,
                    Text.Pandoc.Readers.Org.Blocks,
                    Text.Pandoc.Readers.Org.DocumentTree,
@@ -705,13 +576,7 @@ library
                    Text.Pandoc.Readers.Org.Shared,
                    Text.Pandoc.Readers.Metadata,
                    Text.Pandoc.Readers.Roff,
-                   Text.Pandoc.Writers.Docx.StyleMap,
-                   Text.Pandoc.Writers.Docx.Table,
-                   Text.Pandoc.Writers.Docx.Types,
                    Text.Pandoc.Writers.GridTable
-                   Text.Pandoc.Writers.JATS.References,
-                   Text.Pandoc.Writers.JATS.Table,
-                   Text.Pandoc.Writers.JATS.Types,
                    Text.Pandoc.Writers.LaTeX.Caption,
                    Text.Pandoc.Writers.LaTeX.Notes,
                    Text.Pandoc.Writers.LaTeX.Table,
@@ -724,8 +589,6 @@ library
                    Text.Pandoc.Writers.Markdown.Inline,
                    Text.Pandoc.Writers.Roff,
                    Text.Pandoc.Writers.Blaze,
-                   Text.Pandoc.Writers.Powerpoint.Presentation,
-                   Text.Pandoc.Writers.Powerpoint.Output,
                    Text.Pandoc.TeX,
                    Text.Pandoc.URI,
                    Text.Pandoc.CSS,
@@ -749,7 +612,7 @@ test-suite test-pandoc
   type:           exitcode-stdio-1.0
   main-is:        test-pandoc.hs
   hs-source-dirs: test
-  build-depends:  pandoc,
+  build-depends:  pandoc-lite,
                   Diff              >= 0.2     && < 0.5,
                   Glob              >= 0.7     && < 0.11,
                   bytestring        >= 0.9     && < 0.12,
@@ -793,8 +656,6 @@ test-suite test-pandoc
                   Tests.Readers.Org.Shared
                   Tests.Readers.RST
                   Tests.Readers.RTF
-                  Tests.Readers.Docx
-                  Tests.Readers.ODT
                   Tests.Readers.Txt2Tags
                   Tests.Readers.EPUB
                   Tests.Readers.Muse
