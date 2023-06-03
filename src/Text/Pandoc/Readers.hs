@@ -28,12 +28,9 @@ module Text.Pandoc.Readers
   , readMarkdown
   , readCommonMark
   , readRST
-  , readLaTeX
   , readHtml
   , readNative
   , readJSON
-  , readBibTeX
-  , readBibLaTeX
   -- * Miscellaneous
   , getReader
   , getDefaultExtensions
@@ -53,10 +50,8 @@ import Text.Pandoc.Options
 import Text.Pandoc.Readers.CommonMark
 import Text.Pandoc.Readers.Markdown
 import Text.Pandoc.Readers.HTML (readHtml)
-import Text.Pandoc.Readers.LaTeX
 import Text.Pandoc.Readers.Native
 import Text.Pandoc.Readers.RST
-import Text.Pandoc.Readers.BibTeX
 import qualified Text.Pandoc.UTF8 as UTF8
 import Text.Pandoc.Sources (ToSources(..), sourcesToText)
 
@@ -78,9 +73,6 @@ readers = [("native"       , TextReader readNative)
           ,("gfm"          , TextReader readCommonMark)
           ,("rst"          , TextReader readRST)
           ,("html"         , TextReader readHtml)
-          ,("latex"        , TextReader readLaTeX)
-          ,("bibtex"       , TextReader readBibTeX)
-          ,("biblatex"     , TextReader readBibLaTeX)
            ]
 
 -- | Retrieve reader, extensions based on format spec (format+extensions).
