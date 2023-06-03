@@ -38,29 +38,18 @@ module Text.Pandoc.Class.IO
 import Control.Monad.Except (throwError)
 import Control.Monad.IO.Class (MonadIO, liftIO)
 import Data.ByteString.Base64 (decodeBase64Lenient)
-import Data.ByteString.Lazy (toChunks)
 import Data.Text (Text, pack, unpack)
 import Data.Time (TimeZone, UTCTime)
 import Data.Unique (hashUnique)
-import Network.Connection (TLSSettings (TLSSettingsSimple))
-import Network.HTTP.Client
-       (httpLbs, responseBody, responseHeaders,
-        Request(port, host, requestHeaders), parseRequest, newManager)
-import Network.HTTP.Client.Internal (addProxy)
-import Network.HTTP.Client.TLS (mkManagerSettings)
-import Network.HTTP.Types.Header ( hContentType )
-import Network.Socket (withSocketsDo)
 import Network.URI (unEscapeString)
 import System.Directory (createDirectoryIfMissing)
-import System.Environment (getEnv)
 import System.FilePath ((</>), takeDirectory, normalise)
 import qualified System.FilePath.Posix as Posix
 import System.IO (stderr)
 import System.IO.Error
 import System.Random (StdGen)
-import Text.Pandoc.Class.CommonState (CommonState (..))
 import Text.Pandoc.Class.PandocMonad
-       (PandocMonad, getsCommonState, getMediaBag, report)
+       (PandocMonad, getMediaBag, report)
 import Text.Pandoc.Definition (Pandoc, Inline (Image))
 import Text.Pandoc.Error (PandocError (..))
 import Text.Pandoc.Logging (LogMessage (..), messageVerbosity, showLogMessage)
@@ -70,7 +59,6 @@ import Text.Pandoc.Walk (walk)
 import qualified Control.Exception as E
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Lazy as BL
-import qualified Data.CaseInsensitive as CI
 import qualified Data.Text as T
 import qualified Data.Time
 import qualified Data.Time.LocalTime
@@ -127,29 +115,7 @@ openURL u
      let contents = UTF8.fromString $
                      unEscapeString $ T.unpack $ T.drop 1 $ T.dropWhile (/=',') u''
      return (decodeBase64Lenient contents, Just mime)
- | otherwise = do
-     let toReqHeader (n, v) = (CI.mk (UTF8.fromText n), UTF8.fromText v)
-     customHeaders <- map toReqHeader <$> getsCommonState stRequestHeaders
-     disableCertificateValidation <- getsCommonState stNoCheckCertificate
-     report $ Fetching u
-     res <- liftIO $ E.try $ withSocketsDo $ do
-       let parseReq = parseRequest
-       proxy <- tryIOError (getEnv "http_proxy")
-       let addProxy' x = case proxy of
-                            Left _ -> return x
-                            Right pr -> parseReq pr >>= \r ->
-                                return (addProxy (host r) (port r) x)
-       req <- parseReq (unpack u) >>= addProxy'
-       let req' = req{requestHeaders = customHeaders ++ requestHeaders req}
-       let tlsSimple = TLSSettingsSimple disableCertificateValidation False False
-       let tlsManagerSettings = mkManagerSettings tlsSimple  Nothing
-       resp <- newManager tlsManagerSettings >>= httpLbs req'
-       return (B.concat $ toChunks $ responseBody resp,
-               UTF8.toText `fmap` lookup hContentType (responseHeaders resp))
-
-     case res of
-          Right r -> return r
-          Left e  -> throwError $ PandocHttpError u e
+ | otherwise = throwError $ PandocSomeError "HTTP not supported"
 
 -- | Read the lazy ByteString contents from a file path, raising an error on
 -- failure.

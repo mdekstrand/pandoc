@@ -32,7 +32,7 @@ import Text.Pandoc.Class.PandocMonad (PandocMonad (..), fetchItem,
 import Text.Pandoc.Logging
 import Text.Pandoc.Error (PandocError(..))
 import Text.Pandoc.MIME (MimeType)
-import Text.Pandoc.Shared (renderTags', trim, tshow)
+import Text.Pandoc.Shared (renderTags', trim)
 import Text.Pandoc.URI (isURI)
 import Text.Pandoc.UTF8 (toString, toText, fromText)
 import Text.Pandoc.Parsing (ParsecT, runParserT)
@@ -279,9 +279,6 @@ getData mimetype src
    handler e = case e of
                  PandocResourceNotFound r -> do
                    report $ CouldNotFetchResource r ""
-                   return $ CouldNotFetch e
-                 PandocHttpError u er -> do
-                   report $ CouldNotFetchResource u (tshow er)
                    return $ CouldNotFetch e
                  _ -> throwError e
 
