@@ -50,8 +50,6 @@ import Text.Blaze.Internal (MarkupM (Empty), customLeaf, customParent)
 import Text.DocTemplates (FromContext (lookupContext), Context (..))
 import Text.Blaze.Html hiding (contents)
 import Text.Pandoc.Definition
-import Text.Pandoc.Highlighting (formatHtmlBlock, formatHtml4Block,
-                 formatHtmlInline, highlight, styleToCss)
 import Text.Pandoc.ImageSize
 import Text.Pandoc.Options
 import Text.Pandoc.Shared
@@ -346,12 +344,7 @@ pandocToHtml opts (Pandoc meta blocks) = do
         _ -> mempty
   let mCss :: Maybe [Text] = lookupContext "css" metadata
   let context :: Context Text
-      context =   (if stHighlighting st
-                      then case writerHighlightStyle opts of
-                                Just sty -> defField "highlighting-css"
-                                            (literal $ T.pack $ styleToCss sty)
-                                Nothing  -> id
-                      else id) .
+      context =   id .
                   (if stCsl st
                       then defField "csl-css" True .
                            (case stCslEntrySpacing st of
@@ -940,11 +933,7 @@ blockToHtmlInner opts (CodeBlock (id',classes,keyvals) rawCode) = do
       adjCode  = if tolhs
                     then T.unlines . map ("> " <>) . T.lines $ rawCode
                     else rawCode
-      hlCode   = if isJust (writerHighlightStyle opts)
-                    then highlight (writerSyntaxMap opts)
-                         (if html5 then formatHtmlBlock else formatHtml4Block)
-                            (id'',classes',keyvals) adjCode
-                    else Left ""
+      hlCode   = Left ""
   case hlCode of
          Left msg -> do
            unless (T.null msg) $
@@ -1438,11 +1427,7 @@ inlineToHtml opts inline = do
                                modify $ \st -> st{ stHighlighting = True }
                                addAttrs opts (ids,[],kvs) $
                                  fromMaybe id sampOrVar h
-                        where hlCode = if isJust (writerHighlightStyle opts)
-                                          then highlight
-                                                 (writerSyntaxMap opts)
-                                                 formatHtmlInline attr str
-                                          else Left ""
+                        where hlCode = Left ""
                               (sampOrVar,cs')
                                 | "sample" `elem` cs =
                                       (Just H.samp,"sample" `delete` cs)

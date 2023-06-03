@@ -42,11 +42,9 @@ import Data.Text (Text)
 import qualified Data.Set as Set
 import Data.Typeable (Typeable)
 import GHC.Generics (Generic)
-import Skylighting (SyntaxMap, defaultSyntaxMap)
 import Text.DocTemplates (Context(..), Template)
 import Text.Pandoc.Extensions
 import Text.Pandoc.Chunks (PathTemplate)
-import Text.Pandoc.Highlighting (Style, pygments)
 import Text.Pandoc.UTF8 (toStringLazy)
 import Data.Aeson.TH (deriveJSON)
 import Data.Aeson
@@ -310,8 +308,6 @@ data WriterOptions = WriterOptions
   , writerSlideLevel        :: Maybe Int  -- ^ Force header level of slides
   , writerTopLevelDivision  :: TopLevelDivision -- ^ Type of top-level divisions
   , writerListings          :: Bool       -- ^ Use listings package for code
-  , writerHighlightStyle    :: Maybe Style  -- ^ Style to use for highlighting
-                                           -- (Nothing = no highlighting)
   , writerSetextHeaders     :: Bool       -- ^ Use setext headers for levels 1-2 in markdown
   , writerListTables        :: Bool       -- ^ Use list tables for RST tables
   , writerEpubSubdirectory  :: Text       -- ^ Subdir for epub in OCF
@@ -323,7 +319,6 @@ data WriterOptions = WriterOptions
   , writerTOCDepth          :: Int            -- ^ Number of levels to include in TOC
   , writerReferenceDoc      :: Maybe FilePath -- ^ Path to reference document if specified
   , writerReferenceLocation :: ReferenceLocation    -- ^ Location of footnotes and references for writing markdown
-  , writerSyntaxMap         :: SyntaxMap
   , writerPreferAscii       :: Bool           -- ^ Prefer ASCII representations of characters when possible
   } deriving (Show, Data, Typeable, Generic)
 
@@ -349,7 +344,6 @@ instance Default WriterOptions where
                       , writerSlideLevel       = Nothing
                       , writerTopLevelDivision = TopLevelDefault
                       , writerListings         = False
-                      , writerHighlightStyle   = Just pygments
                       , writerSetextHeaders    = False
                       , writerListTables       = False
                       , writerEpubSubdirectory = "EPUB"
@@ -361,7 +355,6 @@ instance Default WriterOptions where
                       , writerTOCDepth         = 3
                       , writerReferenceDoc     = Nothing
                       , writerReferenceLocation = EndOfDocument
-                      , writerSyntaxMap        = defaultSyntaxMap
                       , writerPreferAscii      = False
                       }
 
