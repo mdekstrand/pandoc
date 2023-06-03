@@ -405,7 +405,6 @@ library
                    Text.Pandoc.Slides,
                    Text.Pandoc.Templates,
                    Text.Pandoc.XML,
-                   Text.Pandoc.SelfContained,
                    Text.Pandoc.Logging,
                    Text.Pandoc.Process,
                    Text.Pandoc.MIME,
