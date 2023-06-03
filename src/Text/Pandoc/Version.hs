@@ -16,7 +16,7 @@ module Text.Pandoc.Version (
                     ) where
 
 import Data.Version (Version, showVersion)
-import Paths_pandoc (version)
+import Paths_pandoc_lite (version)
 import qualified Data.Text as T
 
 -- | Version number of pandoc library.

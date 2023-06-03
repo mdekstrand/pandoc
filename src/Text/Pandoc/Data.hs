@@ -35,7 +35,7 @@ import qualified Control.Exception as E
 import Text.Pandoc.Data.BakedIn (dataFiles)
 import Text.Pandoc.Shared (makeCanonical)
 #else
-import Paths_pandoc (getDataDir)
+import Paths_pandoc_lite (getDataDir)
 #endif
 
 -- | Read file from from the default data files.

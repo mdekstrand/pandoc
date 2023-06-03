@@ -1,5 +1,5 @@
 cabal-version:   2.4
-name:            pandoc
+name:            pandoc-lite
 version:         3.1.2
 build-type:      Simple
 license:         GPL-2.0-or-later
@@ -740,8 +740,8 @@ library
                    Text.Pandoc.Citeproc.Locator,
                    Text.Pandoc.Citeproc.MetaValue,
                    Text.Pandoc.Citeproc.Util,
-                   Paths_pandoc
-  autogen-modules: Paths_pandoc
+                   Paths_pandoc_lite
+  autogen-modules: Paths_pandoc_lite
   buildable:       True
 
 test-suite test-pandoc

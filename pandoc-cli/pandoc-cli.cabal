@@ -1,5 +1,5 @@
 cabal-version:   2.4
-name:            pandoc-cli
+name:            pandoc-cli-lite
 version:         0.1
 build-type:      Simple
 license:         GPL-2.0-or-later
@@ -67,7 +67,7 @@ executable pandoc
   hs-source-dirs:  src
   main-is:         pandoc.hs
   buildable:       True
-  build-depends:   pandoc >= 3.0,
+  build-depends:   pandoc-lite >= 3.0,
                    text
   other-modules:   PandocCLI.Lua
                  , PandocCLI.Server
