@@ -70,10 +70,6 @@ import Text.Pandoc.URI (isURI)
 import Text.Pandoc.Writers.Shared (lookupMetaString)
 import Text.Pandoc.Readers.Markdown (yamlToMeta)
 import qualified Text.Pandoc.UTF8 as UTF8
-#ifndef _WINDOWS
-import System.Posix.IO (stdOutput)
-import System.Posix.Terminal (queryTerminal)
-#endif
 
 convertWithOpts :: ScriptingEngine -> Opt -> IO ()
 convertWithOpts scriptingEngine opts = do
@@ -93,11 +89,7 @@ convertWithOpts scriptingEngine opts = do
              (fromMaybe ["-"] $ optInputFiles opts)
        exitSuccess
 
-#ifdef _WINDOWS
-  let istty = True
-#else
-  istty <- liftIO $ queryTerminal stdOutput
-#endif
+  let istty = False
 
   res <- runIO $ convertWithOpts' scriptingEngine istty datadir opts
   case res of
