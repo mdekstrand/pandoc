@@ -1020,8 +1020,7 @@ compileInfo :: String
 compileInfo =
   "\nCompiled with pandoc-types " ++ VERSION_pandoc_types ++
   ", texmath " ++ VERSION_texmath ++ ", skylighting " ++
-  VERSION_skylighting ++ ",\nciteproc " ++ VERSION_citeproc ++
-  ", ipynb " ++ VERSION_ipynb
+  VERSION_skylighting ++ ",\nciteproc " ++ VERSION_citeproc
 
 handleUnrecognizedOption :: String -> [String] -> [String]
 handleUnrecognizedOption "--smart" =

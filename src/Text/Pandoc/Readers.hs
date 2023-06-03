@@ -27,30 +27,14 @@ module Text.Pandoc.Readers
   , readers
   , readMarkdown
   , readCommonMark
-  , readCreole
-  , readDokuWiki
-  , readMediaWiki
-  , readVimwiki
   , readRST
-  , readOrg
   , readLaTeX
   , readHtml
-  , readJira
-  , readTextile
-  , readHaddock
   , readNative
   , readJSON
-  , readTWiki
-  , readTikiWiki
-  , readTxt2Tags
-  , readMuse
-  , readIpynb
-  , readCSV
-  , readTSV
   , readCslJson
   , readBibTeX
   , readBibLaTeX
-  , readRTF
   -- * Miscellaneous
   , getReader
   , getDefaultExtensions
@@ -69,28 +53,12 @@ import qualified Text.Pandoc.Format as Format
 import Text.Pandoc.Options
 import Text.Pandoc.Readers.CommonMark
 import Text.Pandoc.Readers.Markdown
-import Text.Pandoc.Readers.Creole
-import Text.Pandoc.Readers.DokuWiki
-import Text.Pandoc.Readers.Ipynb
-import Text.Pandoc.Readers.Haddock
 import Text.Pandoc.Readers.HTML (readHtml)
-import Text.Pandoc.Readers.Jira (readJira)
 import Text.Pandoc.Readers.LaTeX
-import Text.Pandoc.Readers.MediaWiki
-import Text.Pandoc.Readers.Muse
 import Text.Pandoc.Readers.Native
-import Text.Pandoc.Readers.Org
 import Text.Pandoc.Readers.RST
-import Text.Pandoc.Readers.Textile
-import Text.Pandoc.Readers.TikiWiki
-import Text.Pandoc.Readers.TWiki
-import Text.Pandoc.Readers.Txt2Tags
-import Text.Pandoc.Readers.Vimwiki
-import Text.Pandoc.Readers.Man
-import Text.Pandoc.Readers.CSV
 import Text.Pandoc.Readers.CslJson
 import Text.Pandoc.Readers.BibTeX
-import Text.Pandoc.Readers.RTF
 import qualified Text.Pandoc.UTF8 as UTF8
 import Text.Pandoc.Sources (ToSources(..), sourcesToText)
 
@@ -109,30 +77,13 @@ readers = [("native"       , TextReader readNative)
           ,("markdown_mmd",  TextReader readMarkdown)
           ,("commonmark"   , TextReader readCommonMark)
           ,("commonmark_x" , TextReader readCommonMark)
-          ,("creole"       , TextReader readCreole)
-          ,("dokuwiki"     , TextReader readDokuWiki)
           ,("gfm"          , TextReader readCommonMark)
           ,("rst"          , TextReader readRST)
-          ,("mediawiki"    , TextReader readMediaWiki)
-          ,("vimwiki"      , TextReader readVimwiki)
-          ,("org"          , TextReader readOrg)
-          ,("textile"      , TextReader readTextile) -- TODO : textile+lhs
           ,("html"         , TextReader readHtml)
-          ,("jira"         , TextReader readJira)
           ,("latex"        , TextReader readLaTeX)
-          ,("haddock"      , TextReader readHaddock)
-          ,("twiki"        , TextReader readTWiki)
-          ,("tikiwiki"     , TextReader readTikiWiki)
-          ,("t2t"          , TextReader readTxt2Tags)
-          ,("muse"         , TextReader readMuse)
-          ,("man"          , TextReader readMan)
-          ,("ipynb"        , TextReader readIpynb)
-          ,("csv"          , TextReader readCSV)
-          ,("tsv"          , TextReader readTSV)
           ,("csljson"      , TextReader readCslJson)
           ,("bibtex"       , TextReader readBibTeX)
           ,("biblatex"     , TextReader readBibLaTeX)
-          ,("rtf"          , TextReader readRTF)
            ]
 
 -- | Retrieve reader, extensions based on format spec (format+extensions).
