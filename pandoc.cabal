@@ -299,6 +299,10 @@ common common-options
                     -Wpartial-fields
                     -Wmissing-signatures
                     -fhide-source-paths
+                    -fexternal-interpreter
+                    -- -no-hs-main
+                    -- -optl-mexec-model=reactor
+                    -- -optl-Wl,--export=hs_init
                     -- -Wmissing-export-lists
 
   if impl(ghc >= 8.10)
