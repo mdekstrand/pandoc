@@ -55,8 +55,6 @@ data-files:
                  data/templates/default.markdown
                  data/templates/default.commonmark
                  data/templates/default.plain
-                 -- translations
-                 data/translations/*.yaml
                  -- entities
                  data/docbook-entities.txt
                  -- default abbreviations file
@@ -362,7 +360,6 @@ library
                  text                  >= 1.1.1.0  && < 2.1,
                  text-conversions      >= 0.3      && < 0.4,
                  time                  >= 1.5      && < 1.14,
-                 unicode-collation     >= 0.1.1    && < 0.2,
                  unicode-transforms    >= 0.3      && < 0.5,
                  yaml                  >= 0.11     && < 0.12,
                  xml                   >= 1.3.12   && < 1.4
@@ -381,8 +378,6 @@ library
                    Text.Pandoc.Sources,
                    Text.Pandoc.MediaBag,
                    Text.Pandoc.Error,
-                   Text.Pandoc.Translations,
-                   Text.Pandoc.Translations.Types,
                    Text.Pandoc.Readers,
                    Text.Pandoc.Readers.HTML,
                    Text.Pandoc.Readers.Markdown,

@@ -48,7 +48,6 @@ module Text.Pandoc.Class.PandocMonad
   , getResourcePath
   , readMetadataFile
   , fillMediaBag
-  , toLang
   , makeCanonical
   , findFileWithDataFallback
   , checkUserDataDir
@@ -67,7 +66,6 @@ import Network.URI ( escapeURIString, nonStrictRelativeTo,
 import System.FilePath ((</>), takeExtension, dropExtension,
                         isRelative, makeRelative)
 import System.Random (StdGen)
-import Text.Collate.Lang (Lang(..), parseLang)
 import Text.Pandoc.Class.CommonState (CommonState (..))
 import Text.Pandoc.Definition
 import Text.Pandoc.Error
@@ -273,17 +271,6 @@ readFileFromDirs [] _ = return Nothing
 readFileFromDirs (d:ds) f = catchError
     (Just . T.pack . UTF8.toStringLazy <$> readFileLazy (d </> f))
     (\_ -> readFileFromDirs ds f)
-
--- | Convert BCP47 string to a Lang, issuing warning
--- if there are problems.
-toLang :: PandocMonad m => Maybe T.Text -> m (Maybe Lang)
-toLang Nothing = return Nothing
-toLang (Just s) =
-  case parseLang s of
-       Left _ -> do
-         report $ InvalidLang s
-         return Nothing
-       Right l -> return (Just l)
 
 -- | Specialized version of parseURIReference that disallows
 -- single-letter schemes.  Reason:  these are usually windows absolute

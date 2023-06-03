@@ -57,9 +57,6 @@ module Text.Pandoc
                , module Text.Pandoc.Writers
                -- * Rendering templates and default templates
                , module Text.Pandoc.Templates
-               -- * Localization
-               , setTranslations
-               , translateTerm
                -- * Version information
                , pandocVersion
                , pandocVersionText
@@ -75,5 +72,4 @@ import Text.Pandoc.Options
 import Text.Pandoc.Readers
 import Text.Pandoc.Version (pandocVersion, pandocVersionText)
 import Text.Pandoc.Templates
-import Text.Pandoc.Translations (setTranslations, translateTerm)
 import Text.Pandoc.Writers

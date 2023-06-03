@@ -40,7 +40,7 @@ import Data.List.NonEmpty (NonEmpty((:|)))
 import Data.Containers.ListUtils (nubOrd)
 import Data.Maybe (fromMaybe, isJust, isNothing)
 import qualified Data.Set as Set
-import Data.Text (Text)
+import Data.Text (Text, pack)
 import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
 import Network.URI (URI (..), parseURIReference)
@@ -69,7 +69,6 @@ import Text.Blaze.Html.Renderer.Text (renderHtml)
 import qualified Text.Blaze.XHtml1.Transitional as H
 import qualified Text.Blaze.XHtml1.Transitional.Attributes as A
 import Text.Pandoc.Class.PandocMonad (PandocMonad, report)
-import Text.Pandoc.Translations (Term(Abstract), translateTerm)
 import Text.Pandoc.Class.PandocPure (runPure)
 import Text.Pandoc.Error
 import Text.Pandoc.Logging
@@ -267,7 +266,6 @@ pandocToHtml :: PandocMonad m
              -> Pandoc
              -> StateT WriterState m (Html, Context Text)
 pandocToHtml opts (Pandoc meta blocks) = do
-  lift $ setupTranslations meta
   let slideLevel = fromMaybe (getSlideLevel blocks) $ writerSlideLevel opts
   modify $ \st -> st{ stSlideLevel = slideLevel }
   metadata <- metaToContext opts
@@ -280,7 +278,6 @@ pandocToHtml opts (Pandoc meta blocks) = do
   let descriptionMeta = literal $ escapeStringForXML $
                           lookupMetaString "description" meta
   slideVariant <- gets stSlideVariant
-  abstractTitle <- translateTerm Abstract
   let sects = adjustNumbers opts $
               makeSections (writerNumberSections opts) Nothing $
               if slideVariant == NoSlides
@@ -356,7 +353,7 @@ pandocToHtml opts (Pandoc meta blocks) = do
                   (if stMath st
                       then defField "math" math
                       else id) .
-                  defField "abstract-title" abstractTitle .
+                  defField "abstract-title" (pack "Abstract") .
                   (case writerHTMLMathMethod opts of
                         MathJax u -> defField "mathjax" True .
                                      defField "mathjaxurl"
