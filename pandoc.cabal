@@ -98,9 +98,6 @@ data-files:
                  data/abbreviations
                  -- bash completion template
                  data/bash_completion.tpl
-                 -- citeproc
-                 data/default.csl
-                 citeproc/biblatex-localization/*.lbx.strings
                  -- documentation
                  MANUAL.txt, COPYRIGHT
 extra-source-files:
@@ -397,7 +394,6 @@ library
                  random                >= 1        && < 1.3,
                  safe                  >= 0.3.18   && < 0.4,
                  skylighting           >= 0.13.2.1 && < 0.14,
-                 skylighting-core      >= 0.13.2.1 && < 0.14,
                  split                 >= 0.2      && < 0.3,
                  syb                   >= 0.1      && < 0.8,
                  tagsoup               >= 0.14.6   && < 0.15,
@@ -419,7 +415,6 @@ library
   hs-source-dirs:  src
 
   exposed-modules: Text.Pandoc,
-                   Text.Pandoc.App,
                    Text.Pandoc.Data,
                    Text.Pandoc.Options,
                    Text.Pandoc.Extensions,
@@ -428,7 +423,6 @@ library
                    Text.Pandoc.Sources,
                    Text.Pandoc.MediaBag,
                    Text.Pandoc.Error,
-                   Text.Pandoc.Filter,
                    Text.Pandoc.Translations,
                    Text.Pandoc.Translations.Types,
                    Text.Pandoc.Readers,
@@ -452,7 +446,6 @@ library
                    Text.Pandoc.Writers.BibTeX,
                    Text.Pandoc.PDF,
                    Text.Pandoc.UTF8,
-                   Text.Pandoc.Scripting,
                    Text.Pandoc.Slides,
                    Text.Pandoc.Templates,
                    Text.Pandoc.XML,
@@ -467,20 +460,13 @@ library
                    Text.Pandoc.ImageSize,
                    Text.Pandoc.Class,
                    Text.Pandoc.Class.IO,
-                   Text.Pandoc.Citeproc,
                    Text.Pandoc.Chunks,
                    Text.Pandoc.Version
-  other-modules:   Text.Pandoc.App.CommandLineOptions,
-                   Text.Pandoc.App.Input,
-                   Text.Pandoc.App.Opt,
-                   Text.Pandoc.App.OutputSettings,
-                   Text.Pandoc.Class.CommonState,
+  other-modules:   Text.Pandoc.Class.CommonState,
                    Text.Pandoc.Class.PandocMonad,
                    Text.Pandoc.Class.PandocIO,
                    Text.Pandoc.Class.PandocPure,
                    Text.Pandoc.Class.Sandbox,
-                   Text.Pandoc.Filter.Environment,
-                   Text.Pandoc.Filter.JSON,
                    Text.Pandoc.Parsing.Capabilities,
                    Text.Pandoc.Parsing.Citations,
                    Text.Pandoc.Parsing.General,
@@ -514,13 +500,6 @@ library
                    Text.Pandoc.CSV,
                    Text.Pandoc.UUID,
                    Text.Pandoc.Image,
-                   Text.Pandoc.Citeproc.BibTeX,
-                   Text.Pandoc.Citeproc.Name,
-                   Text.Pandoc.Citeproc.CslJson,
-                   Text.Pandoc.Citeproc.Data,
-                   Text.Pandoc.Citeproc.Locator,
-                   Text.Pandoc.Citeproc.MetaValue,
-                   Text.Pandoc.Citeproc.Util,
                    Paths_pandoc_lite
   autogen-modules: Paths_pandoc_lite
   buildable:       True
