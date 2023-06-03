@@ -71,7 +71,6 @@ module Text.Pandoc.Shared (
                      inDirectory,
                      makeCanonical,
                      collapseFilePath,
-                     filteredFilesFromArchive,
                      -- * for squashing blocks
                      blocksToInlines,
                      blocksToInlines',
@@ -82,7 +81,6 @@ module Text.Pandoc.Shared (
                      safeStrRead
                     ) where
 
-import Codec.Archive.Zip
 import qualified Control.Exception as E
 import Control.Monad (MonadPlus (..), msum, unless)
 import qualified Control.Monad.State.Strict as S
@@ -805,16 +803,6 @@ collapseFilePath = Posix.joinPath . reverse . foldl' go [] . splitDirectories
     isSingleton [x] = Just x
     isSingleton _   = Nothing
     checkPathSeperator = fmap isPathSeparator . isSingleton
-
---
--- File selection from the archive
---
-filteredFilesFromArchive :: Archive -> (FilePath -> Bool) -> [(FilePath, BL.ByteString)]
-filteredFilesFromArchive zf f =
-  mapMaybe (fileAndBinary zf) (filter f (filesInArchive zf))
-  where
-    fileAndBinary :: Archive -> FilePath -> Maybe (FilePath, BL.ByteString)
-    fileAndBinary a fp = findEntryByPath fp a >>= \e -> Just (fp, fromEntry e)
 
 ---
 --- Squash blocks into inlines

@@ -28,7 +28,6 @@ module Text.Pandoc.Class.PandocPure
   , runPure
   ) where
 
-import Codec.Archive.Zip
 import Control.Monad.Trans ( MonadTrans(lift) )
 import Control.Monad.Except
     ( ExceptT(..), MonadError(throwError), runExceptT )
@@ -69,9 +68,6 @@ data PureState = PureState
   , stEnv :: [(Text, Text)]
   , stTime :: UTCTime
   , stTimeZone :: TimeZone
-  , stReferenceDocx :: Archive
-  , stReferencePptx :: Archive
-  , stReferenceODT :: Archive
   , stFiles :: FileTree
   , stStdin :: B.ByteString
   , stUserDataFiles :: FileTree
@@ -86,9 +82,6 @@ instance Default PureState where
         , stEnv = [("USER", "pandoc-user")]
         , stTime = posixSecondsToUTCTime 0
         , stTimeZone = utc
-        , stReferenceDocx = emptyArchive
-        , stReferencePptx = emptyArchive
-        , stReferenceODT = emptyArchive
         , stFiles = mempty
         , stStdin = mempty
         , stUserDataFiles = mempty
