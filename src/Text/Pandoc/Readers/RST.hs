@@ -18,7 +18,7 @@ import Control.Arrow (second)
 import Control.Monad (forM_, guard, liftM, mplus, mzero, when)
 import Control.Monad.Except (throwError)
 import Control.Monad.Identity (Identity (..))
-import Data.Char (isHexDigit, isSpace, toUpper, isAlphaNum)
+import Data.Char (isHexDigit, toUpper, isAlphaNum)
 import Data.List (deleteFirstsBy, elemIndex, nub, partition, sort, transpose)
 import qualified Data.Map as M
 import Data.Maybe (fromMaybe, maybeToList, isJust)
@@ -31,7 +31,6 @@ import Text.Pandoc.Class.PandocMonad (PandocMonad, fetchItem, getTimestamp)
 import Text.Pandoc.CSV (CSVOptions (..), defaultCSVOptions, parseCSV)
 import Text.Pandoc.Definition
 import Text.Pandoc.Error
-import Text.Pandoc.ImageSize (lengthToDim, scaleDimension)
 import Text.Pandoc.Logging
 import Text.Pandoc.Options
 import Text.Pandoc.Parsing
@@ -638,24 +637,8 @@ directive' = do
           alignClasses = T.words $ maybe "" trim (lookup cl fields) <>
                           maybe "" (\x -> "align-" <> trim x)
                           (lookup "align" fields)
-          scale = case trim <$> lookup "scale" fields of
-                    Just v -> case T.unsnoc v of
-                      Just (vv, '%') -> case safeRead vv of
-                                          Just (percent :: Double)
-                                            -> percent / 100.0
-                                          Nothing -> 1.0
-                      _ -> case safeRead v of
-                             Just (s :: Double) -> s
-                             Nothing            -> 1.0
-                    Nothing -> 1.0
-          widthAttr = maybe [] (\x -> [("width",
-                                        tshow $ scaleDimension scale x)])
-                        $ lookup "width" fields >>=
-                          (lengthToDim . T.filter (not . isSpace))
-          heightAttr = maybe [] (\x -> [("height",
-                                         tshow $ scaleDimension scale x)])
-                        $ lookup "height" fields >>=
-                          (lengthToDim . T.filter (not . isSpace))
+          widthAttr = []
+          heightAttr = []
   case label of
         "include" -> includeDirective top fields body'
         "table" -> tableDirective top fields body'

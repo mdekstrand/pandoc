@@ -50,7 +50,6 @@ import Text.Blaze.Internal (MarkupM (Empty), customLeaf, customParent)
 import Text.DocTemplates (FromContext (lookupContext), Context (..))
 import Text.Blaze.Html hiding (contents)
 import Text.Pandoc.Definition
-import Text.Pandoc.ImageSize
 import Text.Pandoc.Options
 import Text.Pandoc.Shared
 import Text.Pandoc.Slides
@@ -686,7 +685,7 @@ attrsToHtml opts (id',classes',keyvals) = do
 imgAttrsToHtml :: PandocMonad m
                => WriterOptions -> Attr -> StateT WriterState m [Attribute]
 imgAttrsToHtml opts attr = do
-  attrsToHtml opts (ident,cls, consolidateStyles (kvs' ++ dimensionsToAttrList attr))
+  attrsToHtml opts (ident,cls, consolidateStyles kvs')
   where
     (ident,cls,kvs) = attr
     kvs' = filter isNotDim kvs
@@ -700,14 +699,6 @@ imgAttrsToHtml opts attr = do
            (ss, rest) -> ("style", T.intercalate ";" $ map snd ss) : rest
     isStyle ("style", _) = True
     isStyle _            = False
-
-dimensionsToAttrList :: Attr -> [(Text, Text)]
-dimensionsToAttrList attr = go Width ++ go Height
-  where
-    go dir = case dimension dir attr of
-               (Just (Pixel a)) -> [(tshow dir, tshow a)]
-               (Just x)         -> [("style", tshow dir <> ":" <> tshow x)]
-               Nothing          -> []
 
 adjustNumbers :: WriterOptions -> [Block] -> [Block]
 adjustNumbers opts doc =
