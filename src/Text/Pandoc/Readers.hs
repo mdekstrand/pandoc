@@ -32,7 +32,6 @@ module Text.Pandoc.Readers
   , readHtml
   , readNative
   , readJSON
-  , readCslJson
   , readBibTeX
   , readBibLaTeX
   -- * Miscellaneous
@@ -57,7 +56,6 @@ import Text.Pandoc.Readers.HTML (readHtml)
 import Text.Pandoc.Readers.LaTeX
 import Text.Pandoc.Readers.Native
 import Text.Pandoc.Readers.RST
-import Text.Pandoc.Readers.CslJson
 import Text.Pandoc.Readers.BibTeX
 import qualified Text.Pandoc.UTF8 as UTF8
 import Text.Pandoc.Sources (ToSources(..), sourcesToText)
@@ -81,7 +79,6 @@ readers = [("native"       , TextReader readNative)
           ,("rst"          , TextReader readRST)
           ,("html"         , TextReader readHtml)
           ,("latex"        , TextReader readLaTeX)
-          ,("csljson"      , TextReader readCslJson)
           ,("bibtex"       , TextReader readBibTeX)
           ,("biblatex"     , TextReader readBibLaTeX)
            ]

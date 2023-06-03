@@ -20,7 +20,6 @@ module Text.Pandoc.Writers
       Writer(..)
     , writers
     , writeCommonMark
-    , writeCslJson
     , writeHtml4
     , writeHtml4String
     , writeHtml5
@@ -43,7 +42,6 @@ import Text.Pandoc.Options
 import qualified Text.Pandoc.UTF8 as UTF8
 import Text.Pandoc.Error
 import Text.Pandoc.Writers.CommonMark
-import Text.Pandoc.Writers.CslJson
 import Text.Pandoc.Writers.HTML
 import Text.Pandoc.Writers.Markdown
 import Text.Pandoc.Writers.Native
@@ -68,7 +66,6 @@ writers = [
   ,("commonmark"   , TextWriter writeCommonMark)
   ,("commonmark_x" , TextWriter writeCommonMark)
   ,("gfm"          , TextWriter writeCommonMark)
-  ,("csljson"      , TextWriter writeCslJson)
   ]
 
 -- | Retrieve writer, extensions based on formatSpec (format+extensions).
