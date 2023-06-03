@@ -29,24 +29,13 @@ module Text.Pandoc.Writers
     , writeConTeXt
     , writeCslJson
     , writeDZSlides
-    , writeDocBook4
-    , writeDocBook5
-    , writeDocx
     , writeDokuWiki
-    , writeEPUB2
-    , writeEPUB3
-    , writeFB2
     , writeIpynb
     , writeHaddock
     , writeHtml4
     , writeHtml4String
     , writeHtml5
     , writeHtml5String
-    , writeICML
-    , writeJATS
-    , writeJatsArchiving
-    , writeJatsArticleAuthoring
-    , writeJatsPublishing
     , writeJSON
     , writeJira
     , writeLaTeX
@@ -57,12 +46,8 @@ module Text.Pandoc.Writers
     , writeMs
     , writeMuse
     , writeNative
-    , writeODT
-    , writeOPML
-    , writeOpenDocument
     , writeOrg
     , writePlain
-    , writePowerpoint
     , writeRST
     , writeRTF
     , writeRevealJs
@@ -94,16 +79,10 @@ import Text.Pandoc.Writers.ChunkedHTML
 import Text.Pandoc.Writers.CommonMark
 import Text.Pandoc.Writers.ConTeXt
 import Text.Pandoc.Writers.CslJson
-import Text.Pandoc.Writers.DocBook
-import Text.Pandoc.Writers.Docx
 import Text.Pandoc.Writers.DokuWiki
-import Text.Pandoc.Writers.EPUB
-import Text.Pandoc.Writers.FB2
 import Text.Pandoc.Writers.Ipynb
 import Text.Pandoc.Writers.Haddock
 import Text.Pandoc.Writers.HTML
-import Text.Pandoc.Writers.ICML
-import Text.Pandoc.Writers.JATS
 import Text.Pandoc.Writers.Jira
 import Text.Pandoc.Writers.LaTeX
 import Text.Pandoc.Writers.Man
@@ -112,11 +91,7 @@ import Text.Pandoc.Writers.MediaWiki
 import Text.Pandoc.Writers.Ms
 import Text.Pandoc.Writers.Muse
 import Text.Pandoc.Writers.Native
-import Text.Pandoc.Writers.ODT
-import Text.Pandoc.Writers.OpenDocument
-import Text.Pandoc.Writers.OPML
 import Text.Pandoc.Writers.Org
-import Text.Pandoc.Writers.Powerpoint
 import Text.Pandoc.Writers.RST
 import Text.Pandoc.Writers.RTF
 import Text.Pandoc.Writers.TEI
@@ -134,33 +109,16 @@ writers :: PandocMonad m => [ (Text, Writer m) ]
 writers = [
    ("native"       , TextWriter writeNative)
   ,("json"         , TextWriter writeJSON)
-  ,("docx"         , ByteStringWriter writeDocx)
-  ,("odt"          , ByteStringWriter writeODT)
-  ,("pptx"         , ByteStringWriter writePowerpoint)
-  ,("epub"         , ByteStringWriter writeEPUB3)
-  ,("epub2"        , ByteStringWriter writeEPUB2)
-  ,("epub3"        , ByteStringWriter writeEPUB3)
-  ,("fb2"          , TextWriter writeFB2)
   ,("ipynb"        , TextWriter writeIpynb)
   ,("html"         , TextWriter writeHtml5String)
   ,("html4"        , TextWriter writeHtml4String)
   ,("html5"        , TextWriter writeHtml5String)
-  ,("icml"         , TextWriter writeICML)
   ,("s5"           , TextWriter writeS5)
   ,("slidy"        , TextWriter writeSlidy)
   ,("slideous"     , TextWriter writeSlideous)
   ,("dzslides"     , TextWriter writeDZSlides)
   ,("revealjs"     , TextWriter writeRevealJs)
-  ,("docbook"      , TextWriter writeDocBook5)
-  ,("docbook4"     , TextWriter writeDocBook4)
-  ,("docbook5"     , TextWriter writeDocBook5)
-  ,("jats"         , TextWriter writeJatsArchiving)
-  ,("jats_articleauthoring", TextWriter writeJatsArticleAuthoring)
-  ,("jats_publishing" , TextWriter writeJatsPublishing)
-  ,("jats_archiving" , TextWriter writeJatsArchiving)
   ,("jira"         , TextWriter writeJira)
-  ,("opml"         , TextWriter writeOPML)
-  ,("opendocument" , TextWriter writeOpenDocument)
   ,("latex"        , TextWriter writeLaTeX)
   ,("beamer"       , TextWriter writeBeamer)
   ,("context"      , TextWriter writeConTeXt)

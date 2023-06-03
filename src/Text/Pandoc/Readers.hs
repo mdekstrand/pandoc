@@ -25,8 +25,6 @@ module Text.Pandoc.Readers
     -- * Readers: converting /to/ Pandoc format
     Reader (..)
   , readers
-  , readDocx
-  , readODT
   , readMarkdown
   , readCommonMark
   , readCreole
@@ -37,28 +35,21 @@ module Text.Pandoc.Readers
   , readOrg
   , readLaTeX
   , readHtml
-  , readJATS
   , readJira
   , readTextile
-  , readDocBook
-  , readOPML
   , readHaddock
   , readNative
   , readJSON
   , readTWiki
   , readTikiWiki
   , readTxt2Tags
-  , readEPUB
   , readMuse
-  , readFB2
   , readIpynb
   , readCSV
   , readTSV
   , readCslJson
   , readBibTeX
   , readBibLaTeX
-  , readEndNoteXML
-  , readRIS
   , readRTF
   -- * Miscellaneous
   , getReader
@@ -79,22 +70,15 @@ import Text.Pandoc.Options
 import Text.Pandoc.Readers.CommonMark
 import Text.Pandoc.Readers.Markdown
 import Text.Pandoc.Readers.Creole
-import Text.Pandoc.Readers.DocBook
-import Text.Pandoc.Readers.Docx
 import Text.Pandoc.Readers.DokuWiki
-import Text.Pandoc.Readers.EPUB
-import Text.Pandoc.Readers.FB2
 import Text.Pandoc.Readers.Ipynb
 import Text.Pandoc.Readers.Haddock
 import Text.Pandoc.Readers.HTML (readHtml)
-import Text.Pandoc.Readers.JATS (readJATS)
 import Text.Pandoc.Readers.Jira (readJira)
 import Text.Pandoc.Readers.LaTeX
 import Text.Pandoc.Readers.MediaWiki
 import Text.Pandoc.Readers.Muse
 import Text.Pandoc.Readers.Native
-import Text.Pandoc.Readers.ODT
-import Text.Pandoc.Readers.OPML
 import Text.Pandoc.Readers.Org
 import Text.Pandoc.Readers.RST
 import Text.Pandoc.Readers.Textile
@@ -106,8 +90,6 @@ import Text.Pandoc.Readers.Man
 import Text.Pandoc.Readers.CSV
 import Text.Pandoc.Readers.CslJson
 import Text.Pandoc.Readers.BibTeX
-import Text.Pandoc.Readers.EndNote
-import Text.Pandoc.Readers.RIS
 import Text.Pandoc.Readers.RTF
 import qualified Text.Pandoc.UTF8 as UTF8
 import Text.Pandoc.Sources (ToSources(..), sourcesToText)
@@ -133,32 +115,23 @@ readers = [("native"       , TextReader readNative)
           ,("rst"          , TextReader readRST)
           ,("mediawiki"    , TextReader readMediaWiki)
           ,("vimwiki"      , TextReader readVimwiki)
-          ,("docbook"      , TextReader readDocBook)
-          ,("opml"         , TextReader readOPML)
           ,("org"          , TextReader readOrg)
           ,("textile"      , TextReader readTextile) -- TODO : textile+lhs
           ,("html"         , TextReader readHtml)
-          ,("jats"         , TextReader readJATS)
           ,("jira"         , TextReader readJira)
           ,("latex"        , TextReader readLaTeX)
           ,("haddock"      , TextReader readHaddock)
           ,("twiki"        , TextReader readTWiki)
           ,("tikiwiki"     , TextReader readTikiWiki)
-          ,("docx"         , ByteStringReader readDocx)
-          ,("odt"          , ByteStringReader readODT)
           ,("t2t"          , TextReader readTxt2Tags)
-          ,("epub"         , ByteStringReader readEPUB)
           ,("muse"         , TextReader readMuse)
           ,("man"          , TextReader readMan)
-          ,("fb2"          , TextReader readFB2)
           ,("ipynb"        , TextReader readIpynb)
           ,("csv"          , TextReader readCSV)
           ,("tsv"          , TextReader readTSV)
           ,("csljson"      , TextReader readCslJson)
           ,("bibtex"       , TextReader readBibTeX)
           ,("biblatex"     , TextReader readBibLaTeX)
-          ,("endnotexml"   , TextReader readEndNoteXML)
-          ,("ris"          , TextReader readRIS)
           ,("rtf"          , TextReader readRTF)
            ]
 
